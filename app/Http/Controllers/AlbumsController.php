@@ -100,11 +100,12 @@ class AlbumsController extends Controller
     private function getArtistDiscography($artist_id)
     {
         $token = $this->token_info->access_token;
-        $discographe_endpoint = "https://api.spotify.com/v1/artists/".$artist_id."/albums";
+        $discographe_endpoint = "https://api.spotify.com/v1/artists/".$artist_id."/albums?market=ES";
         $response = Http::withToken($token)->get($discographe_endpoint);
 
         if ($response->successful())  {
             $data  = json_decode($response->getBody());
+
             // Parsing the albums data
             $albums = array_map(function($a) {
                 $parsed_data  = new \stdClass();
